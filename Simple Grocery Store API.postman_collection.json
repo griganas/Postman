@@ -353,6 +353,7 @@
 									"    pm.expect(response).to.be.an('object');\r",
 									"    pm.expect(response.created).to.be.true;\r",
 									"    pm.expect(response.itemId).to.be.a('number');\r",
+									"   \r",
 									"    pm.collectionVariables.set('lastAddedItemId', response.itemId);\r",
 									"});"
 								],
@@ -366,7 +367,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n \r\n   \"productId\": {{productId}}\r\n}",
+							"raw": "{\r\n \r\n   \"productId\": {{productId}},\r\n   \"quantity\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -467,7 +468,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"productId\": 4643,\r\n    \"quantity\": 1\r\n}",
+							"raw": "{\r\n    \"productId\": 4643,\r\n    \"quantity\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -500,59 +501,6 @@
 					"response": []
 				},
 				{
-					"name": "Delete Item in Cart",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/carts/:cartId/items/:itemID",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"carts",
-								":cartId",
-								"items",
-								":itemID"
-							],
-							"variable": [
-								{
-									"key": "cartId",
-									"value": "{{cartId}}"
-								},
-								{
-									"key": "itemID",
-									"value": "{{lastAddedItemId}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Register API Client",
 					"event": [
 						{
@@ -573,8 +521,11 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
+									"let timestamp = Date.now();\r",
+									"let randomEmail = `testuser_${timestamp}@example.com`;\r",
 									"\r",
-									"pm.execution.setNextRequest(\"Create an order\");"
+									"pm.collectionVariables.set(\"randomEmail\", randomEmail);\r",
+									"console.log(\"Random Email:\", randomEmail);"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -596,7 +547,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"clientName\": \"Postman on Anastasia's PC\",\r\n    \"clientEmail\": \"grocery1234@example.com\"\r\n}",
+							"raw": "{\r\n    \"clientName\":\"{{$randomFullName}}\",\r\n    \"clientEmail\": \"{{randomEmail}}\",\r\n    \"password\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1021,8 +972,11 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"packages": {},
-										"type": "text/javascript"
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -1034,7 +988,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{AccessToken}}",
+										"value": "Bearer 2a9f908a17603ee86a7f632319450a212cdff593b9e123ed78f7ed1a8e754",
 										"type": "text"
 									}
 								],
@@ -1131,70 +1085,6 @@
 							}
 						}
 					]
-				},
-				{
-					"name": "Invalid Inputs",
-					"item": [
-						{
-							"name": "Invalid Category",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"console.clear();"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"\r",
-											"pm.test(\"Error message\",() => {\r",
-											"    const response = pm.response.json();\r",
-											"    pm.expect(response.error).to.contain(\"Invalid value for query parameter 'category'.\");\r",
-											"\r",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/products?category=invalid-category",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"products"
-									],
-									"query": [
-										{
-											"key": "category",
-											"value": "invalid-category"
-										},
-										{
-											"key": "results ",
-											"value": "205",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
 				}
 			],
 			"event": [
@@ -1220,6 +1110,70 @@
 							""
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "Invalid Inputs",
+			"item": [
+				{
+					"name": "Invalid Category",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.clear();"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Error message\",() => {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response.error).to.contain(\"Invalid value for query parameter 'category'.\");\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/products?category=invalid-category",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "invalid-category"
+								},
+								{
+									"key": "results ",
+									"value": "205",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
@@ -1255,32 +1209,36 @@
 		},
 		{
 			"key": "AccessToken",
-			"value": "YourAccessToken",
+			"value": "910dfc9e4a3fc5e1e711434d76f7e81be995535993de50cc9d648cc9fa507cc3",
 			"type": "string"
 		},
 		{
 			"key": "cartId",
-			"value": "",
+			"value": "3uvgk6ym28tZfKTa6ZenM",
 			"type": "string"
 		},
 		{
 			"key": "itemId",
-			"value": ""
+			"value": 297348691
 		},
 		{
 			"key": "productId",
-			"value": ""
+			"value": 4643
 		},
 		{
 			"key": "lastAddedItemId",
-			"value": ""
+			"value": 6885691
 		},
 		{
 			"key": "accessToken",
-			"value": ""
+			"value": "cd5a1c025f29226eee25a6cc103389e5861835f2910c603537cd7d79af79c443"
 		},
 		{
 			"key": "orderId",
+			"value": "C2gd--kpS8RYKvd6wLZLt"
+		},
+		{
+			"key": "randomEmail",
 			"value": ""
 		}
 	]
