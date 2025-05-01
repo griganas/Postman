@@ -1,31 +1,10 @@
-# Postman API Testing Portfolio
+# Postman API Testing
 
-This repository contains API test collections created in **Postman**, exported as `.postman_collection.json` files, and executed using **Newman**.
+This project includes API tests created with Postman.
 
----
+- One collection is complete (Simple Grocery Store)
+- Two collections are in progress (Trello, Valentine's Book List)
+- Tests were run using Newman and the results are available in HTML format
 
-## ✅ Completed Collections
-
-### 🧪 Simple Grocery Store API
-- Fully tested with assertions, status code checks and collection variables
-- Newman test reports included
-
----
-
-## 🔧 Collections In Progress
-
-### 📝 Trello API
-- Authentication and basic board/card tests under construction
-
-### 📚 Valentine's Book List API
-- Basic requests created, working on test cases and structure
-
----
-
-## How to Use
-
-1. Clone the repo
-2. Open the `.postman_collection.json` files in Postman
-3. Run with Postman or use Newman:
-```bash
-newman run "Simple Grocery Store API.postman_collection.json"
+You can view the report here:  
+[Simple Grocery Store Report](SimpleGroceryReport.html)
