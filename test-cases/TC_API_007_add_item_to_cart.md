@@ -11,10 +11,9 @@ Scenario:
 Add a product to the cart using a valid productId and quantity.
 
 Body:
-{
-  "productId": {{productId}},
-  "quantity": 1
-}
+- productId = {{productId}}
+- quantity = 1
+
 
 Steps:  
 1. Use a valid cartId and productId  
