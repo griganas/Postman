@@ -15,10 +15,8 @@ Path Variables:
 - itemId = {{lastAddedItem}}
 
 Body:
-{
-  "quantity": 2
-}
-
+- quantity = 2
+ 
 Steps:  
 1. Use a valid cartId and itemId  
 2. Make a PATCH request to update the quantity to 2  
