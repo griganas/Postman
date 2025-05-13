@@ -22,7 +22,7 @@ Steps:
 
 Expected Result:  
 - Status code is 200 OK  
-- A list of orders is returned (can be filtered or full list)
+- A list of all orders is returned (can be empty)
 
 Postman Test Code:
 pm.test("Status code is 200", function () {
