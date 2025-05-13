@@ -15,10 +15,8 @@ Path Variables:
 - itemId = {{lastItemId}}
 
 Body:
-{
-  "productId": 4643,
-  "quantity": 2
-}
+- productId = 4643 
+- quantity = 2
 
 Steps:  
 1. Use a valid cartId and itemId  
