@@ -30,11 +30,6 @@ Expected Result:
 - The response includes accessToken  
 - Token is saved for future use
 
-Pre-request Script:
-let timestamp = Date.now();  
-let randomEmail = `testuser_${timestamp}@example.com`;  
-pm.collectionVariables.set("randomEmail", randomEmail);  
-
 Postman Test Code:
 -Pre-request Script:
 let timestamp = Date.now();  
