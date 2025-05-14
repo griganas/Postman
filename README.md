@@ -1,31 +1,33 @@
-# Postman API Testing Portfolio
+Postman API Testing Portfolio
 
-This repository contains API test collections created in **Postman**, exported as `.postman_collection.json` files, and executed using **Newman**.
+This repository contains API tests created using Postman. The collections are saved as .postman_collection.json files and include test scripts, variables, and different test scenarios.
 
----
+Completed Collections
 
-## ✅ Completed Collections
+- Simple Grocery Store API
 
-### 🧪 Simple Grocery Store API
-- Fully tested with assertions, status code checks and collection variables
-- Newman test reports included
+Includes both positive and negative test scenarios
+Status code and error message checks
+Uses collection variables and dynamic data
+All test cases are saved as .md files inside the test-cases folder
+Newman HTML report is included and all tests pass
 
----
 
-## 🔧 Collections In Progress
+- Trello API
 
-### 📝 Trello API
-- Authentication and basic board/card tests under construction
+Covers basic functionality like creating boards, lists, cards, moving cards and deleting boards
+Uses authentication and collection variables
+Test cases are not written yet
+A Newman HTML report is included but shows failed tests, because the collection uses variables for authentication and no token was set
+To run it successfully, set your own Trello API key and token as collection variables in Postman and click "Persist All" before exporting
 
-### 📚 Valentine's Book List API
-- Basic requests created, working on test cases and structure
 
----
+Collections in Progress
 
-## How to Use
+- Valentine's Book List API
+Some basic requests have been added
+More tests and structure will be added soon
 
-1. Clone the repo
-2. Open the `.postman_collection.json` files in Postman
-3. Run with Postman or use Newman:
-```bash
-newman run "Simple Grocery Store API.postman_collection.json"
+
+Extra Notes
+Newman HTML reports are included for the completed collections, but may require proper authentication variables to pass all tests.
