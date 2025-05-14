@@ -33,7 +33,7 @@ To run it successfully, set your own Trello API key and token as collection vari
 Collections in Progress
 
 - Valentine's Book List API
-- 
+
 Some basic requests have been added
 
 More tests and structure will be added soon
