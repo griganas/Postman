@@ -1,0 +1,37 @@
+Test Case ID: TC_API_019  
+Title: Create Order with Invalid Token
+
+Collection: Simple Grocery Store API  
+Folder: Negative Paths → Invalid Authentication  
+Request: POST /orders  
+URL: https://simple-grocery-store-api.glitch.me/orders  
+Method: POST
+
+Scenario:  
+Try to create an order using an invalid bearer token.
+
+Body:
+- cartId = {{cartId}}
+- customerName = {{$randomFullName}}
+
+Steps:  
+1. Set an invalid Authorization token (e.g. Bearer fake.token.value)  
+2. Make a POST request to /orders  
+3. Include the body with cartId and customerName  
+4. Click Send  
+5. Check the status and error message
+
+Expected Result:  
+- Status code is 401 Unauthorized  
+- Error message is: "Invalid bearer token."
+
+Postman Test Code:
+pm.test("Status code is 401", () => {
+    pm.response.to.have.status(401);
+});
+pm.test("Error message", () => {
+    const response = pm.response.json();
+    pm.expect(response.error).to.eql("Invalid bearer token.");
+});
+
+Status: Pass
